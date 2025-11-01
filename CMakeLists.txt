@@ -1,5 +1,7 @@
-cmake_minimum_required(VERSION 3.13)
+cmake_minimum_required(VERSION 3.10)
 project(sdrpp)
+
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 # Backends
 option(OPT_BACKEND_GLFW "Use the GLFW backend" ON)

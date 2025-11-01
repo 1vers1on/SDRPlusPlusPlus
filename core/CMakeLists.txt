@@ -1,5 +1,9 @@
-cmake_minimum_required(VERSION 3.13)
+cmake_minimum_required(VERSION 3.10)
 project(sdrpp_core)
+
+if(POLICY CMP0072)
+    cmake_policy(SET CMP0072 NEW)
+endif()
 
 if (USE_INTERNAL_LIBCORRECT)
     add_subdirectory("libcorrect/")

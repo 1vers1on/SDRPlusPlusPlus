@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.13)
+cmake_minimum_required(VERSION 3.10)
 project(vor_receiver)
 
 file(GLOB_RECURSE SRC "src/*.cpp")
