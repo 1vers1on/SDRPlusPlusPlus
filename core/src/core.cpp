@@ -59,7 +59,7 @@ namespace core {
 
 // main
 int sdrpp_main(int argc, char* argv[]) {
-    flog::info("SDR++ v" VERSION_STR);
+    flog::info("SDR+++ v" VERSION_STR);
 
 #ifdef IS_MACOS_BUNDLE
     // If this is a MacOS .app, CD to the correct directory
@@ -201,8 +201,8 @@ int sdrpp_main(int argc, char* argv[]) {
     defConfig["moduleInstances"]["RTL-TCP Source"]["enabled"] = true;
     defConfig["moduleInstances"]["SDRplay Source"]["module"] = "sdrplay_source";
     defConfig["moduleInstances"]["SDRplay Source"]["enabled"] = true;
-    defConfig["moduleInstances"]["SDR++ Server Source"]["module"] = "sdrpp_server_source";
-    defConfig["moduleInstances"]["SDR++ Server Source"]["enabled"] = true;
+    defConfig["moduleInstances"]["SDR+++ Server Source"]["module"] = "sdrpp_server_source";
+    defConfig["moduleInstances"]["SDR+++ Server Source"]["enabled"] = true;
     defConfig["moduleInstances"]["Spectran HTTP Source"]["module"] = "spectran_http_source";
     defConfig["moduleInstances"]["Spectran HTTP Source"]["enabled"] = true;
     defConfig["moduleInstances"]["SpyServer Source"]["module"] = "spyserver_source";
@@ -277,8 +277,8 @@ int sdrpp_main(int argc, char* argv[]) {
     defConfig["modulesDirectory"] = root + "/modules";
     defConfig["resourcesDirectory"] = root + "/res";
 #else
-    defConfig["modulesDirectory"] = INSTALL_PREFIX "/lib/sdrpp/plugins";
-    defConfig["resourcesDirectory"] = INSTALL_PREFIX "/share/sdrpp";
+    defConfig["modulesDirectory"] = INSTALL_PREFIX "/lib/sdrppp/plugins";
+    defConfig["resourcesDirectory"] = INSTALL_PREFIX "/share/sdrppp";
 #endif
 
     // Load config

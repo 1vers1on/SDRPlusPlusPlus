@@ -1,4 +1,4 @@
-package org.sdrpp.sdrpp;
+package org.sdrppp.sdrppp;
 
 import android.app.NativeActivity;
 import android.app.AlertDialog;

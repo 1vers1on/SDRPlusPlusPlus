@@ -97,8 +97,13 @@ namespace sdrpp_credits {
         "Zipper"
     };
 
+    const char* sdrppDevelopers[] = {
+        "1vers1on"
+    };
+
     const int contributorCount = sizeof(contributors) / sizeof(char*);
     const int libraryCount = sizeof(libraries) / sizeof(char*);
     const int hardwareDonatorCount = sizeof(hardwareDonators) / sizeof(char*);
     const int patronCount = sizeof(patrons) / sizeof(char*);
+    const int sdrppDeveloperCount = sizeof(sdrppDevelopers) / sizeof(char*);
 }

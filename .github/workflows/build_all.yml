@@ -44,7 +44,7 @@ jobs:
           run: 7z x rtl-sdr.zip ; rm "C:/Program Files/PothosSDR/bin/rtlsdr.dll" ; cp "rtl-sdr-64bit-20240623/librtlsdr.dll" "C:/Program Files/PothosSDR/bin/rtlsdr.dll"
 
         - name: Download SDRPlay API
-          run: Invoke-WebRequest -Uri "https://www.sdrpp.org/SDRplay.zip" -OutFile ${{runner.workspace}}/SDRplay.zip
+          run: Invoke-WebRequest -Uri "https://www.sdrppp.org/SDRplay.zip" -OutFile ${{runner.workspace}}/SDRplay.zip
 
         - name: Install SDRPlay API
           run: 7z x ${{runner.workspace}}/SDRplay.zip -o"C:/Program Files/"
@@ -152,7 +152,7 @@ jobs:
 
         - name: Create Archive
           working-directory: ${{runner.workspace}}
-          run: cd $GITHUB_WORKSPACE && sh make_macos_bundle.sh ${{runner.workspace}}/build ./SDR++.app && zip -r ${{runner.workspace}}/sdrpp_macos_intel.zip SDR++.app
+          run: cd $GITHUB_WORKSPACE && sh make_macos_bundle.sh ${{runner.workspace}}/build ./SDR+++.app && zip -r ${{runner.workspace}}/sdrpp_macos_intel.zip SDR+++.app
 
         - name: Save Archive
           uses: actions/upload-artifact@v4
@@ -212,7 +212,7 @@ jobs:
 
         - name: Create Archive
           working-directory: ${{runner.workspace}}
-          run: cd $GITHUB_WORKSPACE && sh make_macos_bundle.sh ${{runner.workspace}}/build ./SDR++.app && zip -r ${{runner.workspace}}/sdrpp_macos_arm.zip SDR++.app
+          run: cd $GITHUB_WORKSPACE && sh make_macos_bundle.sh ${{runner.workspace}}/build ./SDR+++.app && zip -r ${{runner.workspace}}/sdrpp_macos_arm.zip SDR+++.app
 
         - name: Save Archive
           uses: actions/upload-artifact@v4
@@ -547,13 +547,13 @@ jobs:
 
         - name: Recover APK
           working-directory: ${{runner.workspace}}
-          run: docker cp build:/root/SDRPlusPlus/android/app/build/outputs/apk/debug/app-debug.apk ./ && mv app-debug.apk sdrpp.apk
+          run: docker cp build:/root/SDRPlusPlus/android/app/build/outputs/apk/debug/app-debug.apk ./ && mv app-debug.apk sdrppp.apk
 
         - name: Save APK
           uses: actions/upload-artifact@v4
           with:
               name: sdrpp_android
-              path: ${{runner.workspace}}/sdrpp.apk
+              path: ${{runner.workspace}}/sdrppp.apk
 
     create_full_archive:
         needs: [
@@ -602,7 +602,7 @@ jobs:
             mv sdrpp_ubuntu_jammy_aarch64/sdrpp_debian_amd64.deb sdrpp_all/sdrpp_ubuntu_jammy_aarch64.deb &&
             mv sdrpp_ubuntu_noble_amd64/sdrpp_debian_amd64.deb sdrpp_all/sdrpp_ubuntu_noble_amd64.deb &&
             mv sdrpp_ubuntu_noble_aarch64/sdrpp_debian_amd64.deb sdrpp_all/sdrpp_ubuntu_noble_aarch64.deb &&
-            mv sdrpp_android/sdrpp.apk sdrpp_all/sdrpp.apk
+            mv sdrpp_android/sdrppp.apk sdrpp_all/sdrppp.apk
 
         - uses: actions/upload-artifact@v4
           with:

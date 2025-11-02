@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.10)
-project(sdrpp)
+project(sdrppp)
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
@@ -31,7 +31,7 @@ option(OPT_BUILD_RFNM_SOURCE "Build RFNM Source Module (Dependencies: librfnm)" 
 option(OPT_BUILD_RFSPACE_SOURCE "Build RFspace Source Module (no dependencies required)" ON)
 option(OPT_BUILD_RTL_SDR_SOURCE "Build RTL-SDR Source Module (Dependencies: librtlsdr)" ON)
 option(OPT_BUILD_RTL_TCP_SOURCE "Build RTL-TCP Source Module (no dependencies required)" ON)
-option(OPT_BUILD_SDRPP_SERVER_SOURCE "Build SDR++ Server Source Module (no dependencies required)" ON)
+option(OPT_BUILD_SDRPP_SERVER_SOURCE "Build SDR+++ Server Source Module (no dependencies required)" ON)
 option(OPT_BUILD_SDRPLAY_SOURCE "Build SDRplay Source Module (Dependencies: libsdrplay)" OFF)
 option(OPT_BUILD_SOAPY_SOURCE "Build SoapySDR Source Module (Dependencies: soapysdr)" OFF)
 option(OPT_BUILD_SPECTRAN_SOURCE "Build Spectran Source Module (Dependencies: Aaronia RTSA Suite)" OFF)
@@ -64,8 +64,8 @@ option(OPT_BUILD_DISCORD_PRESENCE "Build the Discord Rich Presence module" ON)
 option(OPT_BUILD_FREQUENCY_MANAGER "Build the Frequency Manager module" ON)
 option(OPT_BUILD_IQ_EXPORTER "Build the IQ Exporter module" ON)
 option(OPT_BUILD_RECORDER "Audio and baseband recorder" ON)
-option(OPT_BUILD_RIGCTL_CLIENT "Rigctl client to make SDR++ act as a panadapter" ON)
-option(OPT_BUILD_RIGCTL_SERVER "Rigctl backend for controlling SDR++ with software like gpredict" ON)
+option(OPT_BUILD_RIGCTL_CLIENT "Rigctl client to make SDR+++ act as a panadapter" ON)
+option(OPT_BUILD_RIGCTL_SERVER "Rigctl backend for controlling SDR+++ with software like gpredict" ON)
 option(OPT_BUILD_SCANNER "Frequency scanner" ON)
 option(OPT_BUILD_SCHEDULER "Build the scheduler" OFF)
 
@@ -121,7 +121,7 @@ if (ANDROID)
     set(CMAKE_CXX14_EXTENSION_COMPILE_OPTION "-std=c++17")
 endif (ANDROID)
 
-# Core of SDR++
+# Core of SDR+++
 add_subdirectory("core")
 
 # Source modules
@@ -340,20 +340,20 @@ add_subdirectory("misc_modules/scheduler")
 endif (OPT_BUILD_SCHEDULER)
 
 if (MSVC)
-    add_executable(sdrpp "src/main.cpp" "win32/resources.rc")
+    add_executable(sdrppp "src/main.cpp" "win32/resources.rc")
 else ()
-    add_executable(sdrpp "src/main.cpp")
+    add_executable(sdrppp "src/main.cpp")
 endif ()
 
-target_link_libraries(sdrpp PRIVATE sdrpp_core)
+target_link_libraries(sdrppp PRIVATE sdrpp_core)
 
 # Compiler arguments
-target_compile_options(sdrpp PRIVATE ${SDRPP_COMPILER_FLAGS})
+target_compile_options(sdrppp PRIVATE ${SDRPP_COMPILER_FLAGS})
 
 # Copy dynamic libs over
 if (MSVC)
-    add_custom_target(do_always ALL xcopy /s \"$<TARGET_FILE_DIR:sdrpp_core>\\*.dll\" \"$<TARGET_FILE_DIR:sdrpp>\" /Y)
-    add_custom_target(do_always_volk ALL xcopy /s \"C:/Program Files/PothosSDR/bin\\volk.dll\" \"$<TARGET_FILE_DIR:sdrpp>\" /Y)
+    add_custom_target(do_always ALL xcopy /s \"$<TARGET_FILE_DIR:sdrpp_core>\\*.dll\" \"$<TARGET_FILE_DIR:sdrppp>\" /Y)
+    add_custom_target(do_always_volk ALL xcopy /s \"C:/Program Files/PothosSDR/bin\\volk.dll\" \"$<TARGET_FILE_DIR:sdrppp>\" /Y)
 
     if (COPY_MSVC_REDISTRIBUTABLES)
         # Get the list of Visual C++ runtime DLLs
@@ -363,7 +363,7 @@ if (MSVC)
         # Create a space sperated list
         set(REDIST_DLLS_STR "")
         foreach(DLL IN LISTS CMAKE_INSTALL_SYSTEM_RUNTIME_LIBS)
-            set(REDIST_DLLS_STR COMMAND xcopy /F \"${DLL}\" \"$<TARGET_FILE_DIR:sdrpp>\" /Y ${REDIST_DLLS_STR})
+            set(REDIST_DLLS_STR COMMAND xcopy /F \"${DLL}\" \"$<TARGET_FILE_DIR:sdrppp>\" /Y ${REDIST_DLLS_STR})
         endforeach()
         
         # Create target
@@ -373,20 +373,20 @@ endif ()
 
 
 if (${CMAKE_SYSTEM_NAME} MATCHES "OpenBSD")
-    add_custom_target(do_always ALL cp \"$<TARGET_FILE_DIR:sdrpp_core>/libsdrpp_core.so\" \"$<TARGET_FILE_DIR:sdrpp>\")
+    add_custom_target(do_always ALL cp \"$<TARGET_FILE_DIR:sdrpp_core>/libsdrpp_core.so\" \"$<TARGET_FILE_DIR:sdrppp>\")
 endif ()
 
 if (${CMAKE_SYSTEM_NAME} MATCHES "FreeBSD")
-    target_link_libraries(sdrpp PUBLIC pthread)
-    add_custom_target(do_always ALL cp \"$<TARGET_FILE_DIR:sdrpp_core>/libsdrpp_core.so\" \"$<TARGET_FILE_DIR:sdrpp>\")
+    target_link_libraries(sdrppp PUBLIC pthread)
+    add_custom_target(do_always ALL cp \"$<TARGET_FILE_DIR:sdrpp_core>/libsdrpp_core.so\" \"$<TARGET_FILE_DIR:sdrppp>\")
 endif ()
 
 if (${CMAKE_SYSTEM_NAME} MATCHES "Linux")
-    add_custom_target(do_always ALL cp \"$<TARGET_FILE_DIR:sdrpp_core>/libsdrpp_core.so\" \"$<TARGET_FILE_DIR:sdrpp>\")
+    add_custom_target(do_always ALL cp \"$<TARGET_FILE_DIR:sdrpp_core>/libsdrpp_core.so\" \"$<TARGET_FILE_DIR:sdrppp>\")
 endif ()
 
 if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
-    add_custom_target(do_always ALL cp \"$<TARGET_FILE_DIR:sdrpp_core>/libsdrpp_core.dylib\" \"$<TARGET_FILE_DIR:sdrpp>\")
+    add_custom_target(do_always ALL cp \"$<TARGET_FILE_DIR:sdrpp_core>/libsdrpp_core.dylib\" \"$<TARGET_FILE_DIR:sdrppp>\")
 endif ()
 
 # cmake .. "-DCMAKE_TOOLCHAIN_FILE=C:/dev/vcpkg/scripts/buildsystems/vcpkg.cmake" -DOPT_BUILD_BLADERF_SOURCE=ON -DOPT_BUILD_LIMESDR_SOURCE=ON -DOPT_BUILD_SDRPLAY_SOURCE=ON -DOPT_BUILD_M17_DECODER=ON -DOPT_BUILD_SCANNER=ON -DOPT_BUILD_SCHEDULER=ON -DOPT_BUILD_USRP_SOURCE=ON -DOPT_BUILD_PAGER_DECODER=ON
@@ -395,16 +395,16 @@ endif ()
 configure_file(${CMAKE_SOURCE_DIR}/sdrpp_module.cmake ${CMAKE_CURRENT_BINARY_DIR}/sdrpp_module.cmake @ONLY)
 
 # Install directives
-install(TARGETS sdrpp DESTINATION bin)
-install(DIRECTORY ${CMAKE_SOURCE_DIR}/root/res/bandplans DESTINATION share/sdrpp)
-install(DIRECTORY ${CMAKE_SOURCE_DIR}/root/res/colormaps DESTINATION share/sdrpp)
-install(DIRECTORY ${CMAKE_SOURCE_DIR}/root/res/fonts DESTINATION share/sdrpp)
-install(DIRECTORY ${CMAKE_SOURCE_DIR}/root/res/icons DESTINATION share/sdrpp)
-install(DIRECTORY ${CMAKE_SOURCE_DIR}/root/res/themes DESTINATION share/sdrpp)
-configure_file(${CMAKE_SOURCE_DIR}/sdrpp.desktop ${CMAKE_CURRENT_BINARY_DIR}/sdrpp.desktop @ONLY)
+install(TARGETS sdrppp DESTINATION bin)
+install(DIRECTORY ${CMAKE_SOURCE_DIR}/root/res/bandplans DESTINATION share/sdrppp)
+install(DIRECTORY ${CMAKE_SOURCE_DIR}/root/res/colormaps DESTINATION share/sdrppp)
+install(DIRECTORY ${CMAKE_SOURCE_DIR}/root/res/fonts DESTINATION share/sdrppp)
+install(DIRECTORY ${CMAKE_SOURCE_DIR}/root/res/icons DESTINATION share/sdrppp)
+install(DIRECTORY ${CMAKE_SOURCE_DIR}/root/res/themes DESTINATION share/sdrppp)
+configure_file(${CMAKE_SOURCE_DIR}/sdrppp.desktop ${CMAKE_CURRENT_BINARY_DIR}/sdrppp.desktop @ONLY)
 
 if (${CMAKE_SYSTEM_NAME} MATCHES "Linux")
-    install(FILES ${CMAKE_CURRENT_BINARY_DIR}/sdrpp.desktop DESTINATION share/applications)
+    install(FILES ${CMAKE_CURRENT_BINARY_DIR}/sdrppp.desktop DESTINATION share/applications)
 endif ()
 
 # Create uninstall target

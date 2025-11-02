@@ -24,7 +24,7 @@ namespace credits {
         ImGui::BeginPopupModal("Credits", NULL, ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoMove);
 
         ImGui::PushFont(style::hugeFont);
-        ImGui::TextUnformatted("SDR++          ");
+        ImGui::TextUnformatted("SDR+++          ");
         ImGui::PopFont();
         ImGui::SameLine();
         ImGui::Image(icons::LOGO, imageSize);
@@ -34,7 +34,7 @@ namespace credits {
 
         ImGui::TextUnformatted("This software is brought to you by Alexandre Rouma (ON5RYZ) with the help of\n\n");
 
-        ImGui::Columns(4, "CreditColumns", true);
+        ImGui::Columns(5, "CreditColumns", true);
 
         ImGui::TextUnformatted("Contributors");
         for (int i = 0; i < sdrpp_credits::contributorCount; i++) {
@@ -59,12 +59,20 @@ namespace credits {
             ImGui::BulletText("%s", sdrpp_credits::patrons[i]);
         }
 
+        ImGui::NextColumn();
+        ImGui::TextUnformatted("SDR+++ Developers");
+        for (int i = 0; i < sdrpp_credits::sdrppDeveloperCount; i++) {
+            ImGui::BulletText("%s", sdrpp_credits::sdrppDevelopers[i]);
+        }
+
         ImGui::Columns(1, "CreditColumnsEnd", true);
 
         ImGui::Spacing();
         ImGui::Spacing();
         ImGui::Spacing();
-        ImGui::TextUnformatted("SDR++ v" VERSION_STR " (Built at " __TIME__ ", " __DATE__ ")");
+        ImGui::TextUnformatted("SDR+++ v" VERSION_STR " (Built at " __TIME__ ", " __DATE__ ")");
+
+        // ImGui::TextUnformatted("SDR+++ v" VERSION_STR " (Modified by ellie)");
 
         ImGui::EndPopup();
         ImGui::PopStyleColor();
